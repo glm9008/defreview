@@ -1,0 +1,60 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DefReview.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DefectDBPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:/Desktop/savaitės/Ataskaitinė (2).mdb</Value>
+    </Setting>
+    <Setting Name="OptionsDBPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:/Documents/Visual Studio 2012/Projects/DefReview/db/Options.accdb</Value>
+    </Setting>
+    <Setting Name="KMVsQueryTemplatePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Documents\Visual Studio 2012\Projects\DefReview\templates\KMVsQueryTemplate.xlsx</Value>
+    </Setting>
+    <Setting Name="KMVsQueryTopLeftCell" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A3</Value>
+    </Setting>
+    <Setting Name="KMVsQueryWorksheetName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">query</Value>
+    </Setting>
+    <Setting Name="KMVsQueryFileNameTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{0} - {1:d}.xlsx</Value>
+    </Setting>
+    <Setting Name="KMVsQueryOutputFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:/Desktop/output</Value>
+    </Setting>
+    <Setting Name="Summary2ErrorFileNameTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{0:d} - {1:d} summary2 errors.txt</Value>
+    </Setting>
+    <Setting Name="SummaryOutputFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Desktop\output</Value>
+    </Setting>
+    <Setting Name="Summary2TemplatePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Documents\Visual Studio 2012\Projects\DefReview\templates\Summary2Template.xlsx</Value>
+    </Setting>
+    <Setting Name="Summary2WorksheetName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Summary2</Value>
+    </Setting>
+    <Setting Name="Summary2OutputFileNameTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{0:d} - {1:d} summary2.xlsx</Value>
+    </Setting>
+    <Setting Name="Summary2HeaderAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A1</Value>
+    </Setting>
+    <Setting Name="Summary1HeaderAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">A1</Value>
+    </Setting>
+    <Setting Name="Summary1OutputFileNameTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{0:d} - {1:d} summary1.xlsx</Value>
+    </Setting>
+    <Setting Name="Summary1TemplatePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Documents\Visual Studio 2012\Projects\DefReview\templates\Summary1TemplateHorizontal.xlsx</Value>
+    </Setting>
+    <Setting Name="Summary1WorksheetName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Summary1</Value>
+    </Setting>
+    <Setting Name="Summary1ErrorFileNameTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{0:d} - {1:d} summary1 errors.txt</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
