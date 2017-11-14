@@ -260,10 +260,10 @@ namespace DefReview
             }
             finally
             {
-                range = null;
-                sheet = null;
-                workbook = null;
-                app = null;
+                //range = null;
+                //sheet = null;
+                //workbook = null;
+                //app = null;
                 Marshal.ReleaseComObject(range);
                 Marshal.ReleaseComObject(sheet);
                 Marshal.ReleaseComObject(workbook);

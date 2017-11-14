@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using InteropExcel = Microsoft.Office.Interop.Excel;
 using System.Threading.Tasks;
 using System.ComponentModel;
@@ -131,8 +132,6 @@ namespace DefReview
             string outputFileName = string.Format(Settings.Default.Summary2OutputFileNameTemplate, from, to);
             string fullDestFileName = Path.Combine(outputFolder, outputFileName);
             string templateFileName = Settings.Default.Summary2TemplatePath;
-            InteropExcel.Application app = new InteropExcel.Application();
-            app.Visible = false;
 
             if (worker.CancellationPending) e.Cancel = true;
             worker.ReportProgress(progressCounter++, "Going to copy template file to " + fullDestFileName + "...");
@@ -142,39 +141,60 @@ namespace DefReview
             if (worker.CancellationPending) e.Cancel = true;
             worker.ReportProgress(progressCounter++, "Template file successfully copied.");
 
+            InteropExcel.Application app = new InteropExcel.Application();
+            app.Visible = false;
             InteropExcel.Workbook workbook = app.Workbooks.Open(fullDestFileName);
             InteropExcel.Worksheet sheet = (InteropExcel.Worksheet)workbook.Sheets[Settings.Default.Summary2WorksheetName];
             InteropExcel.Range range = null;
 
-            if (worker.CancellationPending) e.Cancel = true;
-            worker.ReportProgress(progressCounter++, "Going change summary heading...");
-
-            if (worker.CancellationPending) e.Cancel = true;
-            worker.ReportProgress(progressCounter++, "Summary heading successfully edited.");
-
-            range = sheet.Range[Settings.Default.Summary2HeaderAddress];
-            range.Value = string.Format(range.Value, from, to);
-
-            foreach (AddressTable atable in dictTables.Values)
+            try
             {
-                if (worker.CancellationPending) e.Cancel = true;
-                worker.ReportProgress(progressCounter++, "Going to load region \"" + atable.Address + "\" with data...");
-
-                range = sheet.Range[atable.Address].Resize[atable.IntArray.GetLength(0), atable.IntArray.GetLength(1)];
-                range.Value = atable.IntArray;
 
                 if (worker.CancellationPending) e.Cancel = true;
-                worker.ReportProgress(progressCounter++, "Region \"" + atable.Address + "\" successfully loaded with data.");
+                worker.ReportProgress(progressCounter++, "Going change summary heading...");
+
+                if (worker.CancellationPending) e.Cancel = true;
+                worker.ReportProgress(progressCounter++, "Summary heading successfully edited.");
+
+                range = sheet.Range[Settings.Default.Summary2HeaderAddress];
+                range.Value = string.Format(range.Value, from, to);
+
+                foreach (AddressTable atable in dictTables.Values)
+                {
+                    if (worker.CancellationPending) e.Cancel = true;
+                    worker.ReportProgress(progressCounter++, "Going to load region \"" + atable.Address + "\" with data...");
+
+                    range = sheet.Range[atable.Address].Resize[atable.IntArray.GetLength(0), atable.IntArray.GetLength(1)];
+                    range.Value = atable.IntArray;
+
+                    if (worker.CancellationPending) e.Cancel = true;
+                    worker.ReportProgress(progressCounter++, "Region \"" + atable.Address + "\" successfully loaded with data.");
+                }
+
+                if (worker.CancellationPending) e.Cancel = true;
+                worker.ReportProgress(progressCounter++, "All data loaded. Going to save file and quit Interop.Excel...");
+
+                workbook.Save();
+                app.Quit();
+
+                if (worker.CancellationPending) e.Cancel = true;
+                worker.ReportProgress(progressCounter++, "File has been saved, Interop.Excel successfully quitted.");
             }
-
-            if (worker.CancellationPending) e.Cancel = true;
-            worker.ReportProgress(progressCounter++, "All data loaded. Going to save file and quit Interop.Excel...");
-
-            workbook.Save();
-            app.Quit();
-
-            if (worker.CancellationPending) e.Cancel = true;
-            worker.ReportProgress(progressCounter++, "File has been saved, Interop.Excel successfully quitted.");
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                //range = null;
+                //sheet = null;
+                //workbook = null;
+                //app = null;
+                Marshal.ReleaseComObject(range);
+                Marshal.ReleaseComObject(sheet);
+                Marshal.ReleaseComObject(workbook);
+                Marshal.ReleaseComObject(app);
+            }
         }
 
         internal static void CreateSummary2(BackgroundWorker worker, DoWorkEventArgs e)

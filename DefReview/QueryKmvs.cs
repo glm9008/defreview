@@ -6,6 +6,7 @@ using System.Data.OleDb;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 using InteropExcel = Microsoft.Office.Interop.Excel;
 using System.Threading.Tasks;
 using System.ComponentModel;
@@ -113,19 +114,19 @@ namespace DefReview
                 }
                 finally
                 {
-                    range = null;
-                    sheet = null;
+                    Marshal.ReleaseComObject(range);
+                    Marshal.ReleaseComObject(sheet);
                     if (workbook != null)
                     {
                         workbook.Close();
-                        workbook = null;
+                        Marshal.ReleaseComObject(workbook);
                         worker.ReportProgress(pc++, "The Interop.Workbook object has been closed.");
                     }
                 }
             }
             worker.ReportProgress(pc++, "Attempting to quit the Interop.Excel.");
             app.Quit();
-            app = null;
+            Marshal.ReleaseComObject(app);
             if (worker.CancellationPending) e.Cancel = true;
             // report result
             StringBuilder sbReport = new StringBuilder();
